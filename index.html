@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@1,500&family=Quicksand:wght@400;500;600;700&display=swap');
+  :root{
+    --bg1:#0f0524; --bg2:#2a0e4e; --bg3:#5b1a86;
+    --gold:#ffd86b; --gold2:#ffb347; --rose:#ff7eb3; --aqua:#7ee0d6; --violet:#bfa2ff;
+    --glass:rgba(255,255,255,.08); --plate:#f7e9d2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    font-family:'Quicksand',sans-serif;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+    overflow:hidden; position:relative; padding:26px;
+  }
+  /* moving aurora glow */
+  body::before{
+    content:"";position:absolute;inset:-30%;z-index:0;
+    background:
+      radial-gradient(40% 40% at 20% 25%, rgba(255,126,179,.35), transparent 60%),
+      radial-gradient(45% 45% at 80% 30%, rgba(126,224,214,.3), transparent 60%),
+      radial-gradient(50% 50% at 50% 85%, rgba(191,162,255,.35), transparent 60%);
+    filter:blur(20px);
+    animation:aurora 14s ease-in-out infinite alternate;
+  }
+  @keyframes aurora{from{transform:translate(-4%,-3%) scale(1);}to{transform:translate(4%,3%) scale(1.1);}}
+  .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+
+  .star{position:absolute;border-radius:50%;background:#fff;z-index:1;animation:twinkle 3s infinite ease-in-out;}
+  @keyframes twinkle{0%,100%{opacity:.1;transform:scale(.6);}50%{opacity:.95;transform:scale(1.3);}}
+
+  /* floating shimmer particles */
+  .spark{position:absolute;z-index:1;border-radius:50%;background:radial-gradient(circle,#fff,transparent);animation:floatUp linear infinite;opacity:.6;}
+  @keyframes floatUp{from{transform:translateY(0) scale(1);opacity:0;}10%{opacity:.7;}to{transform:translateY(-110vh) scale(.3);opacity:0;}}
+
+  /* balloons */
+  .balloon{position:absolute;bottom:-160px;width:46px;height:58px;border-radius:50% 50% 48% 48%;z-index:1;
+    animation:rise linear infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3));opacity:.9;}
+  .balloon::after{content:"";position:absolute;bottom:-40px;left:50%;width:1px;height:42px;background:rgba(255,255,255,.4);transform:translateX(-50%);}
+  .balloon::before{content:"";position:absolute;top:10px;left:12px;width:12px;height:16px;border-radius:50%;background:rgba(255,255,255,.45);}
+  @keyframes rise{from{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-50vh) rotate(4deg);}to{transform:translateY(-120vh) rotate(-4deg);}}
+
+  .toline{color:#e7d8ff;letter-spacing:3px;font-size:12px;text-transform:uppercase;text-align:center;margin-bottom:8px;opacity:0;animation:fadeUp .8s .2s forwards;}
+  .toline span{color:var(--gold);font-weight:700;}
+  .greet{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:#d9c7ff;letter-spacing:1px;margin-bottom:2px;opacity:0;animation:fadeUp .8s .3s forwards;}
+  .title{
+    font-family:'Pacifico',cursive;font-size:clamp(38px,9vw,72px);line-height:1.05;
+    background:linear-gradient(90deg,var(--gold),var(--rose),var(--violet),var(--gold));
+    background-size:300% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-align:center;margin-bottom:2px;opacity:0;
+    animation:fadeUp .9s .4s forwards, shine 5s linear infinite 1s;
+    filter:drop-shadow(0 6px 22px rgba(255,126,179,.45));
+  }
+  @keyframes shine{to{background-position:300% center;}}
+  .name{position:relative;font-family:'Pacifico',cursive;font-size:clamp(28px,7vw,52px);color:#fff;text-align:center;margin-bottom:24px;opacity:0;animation:fadeUp .9s .6s forwards;text-shadow:0 0 26px rgba(255,216,107,.6);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  /* glass stage behind cake */
+  .stage{position:relative;opacity:0;animation:fadeUp 1s .8s forwards;
+    padding:30px 34px 22px;border-radius:28px;
+    background:var(--glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 20px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.18);}
+  /* glow halo behind cake */
+  .stage::before{content:"";position:absolute;left:50%;top:38%;width:240px;height:240px;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(255,216,107,.5),transparent 65%);filter:blur(8px);z-index:0;
+    animation:halo 3s ease-in-out infinite alternate;}
+  @keyframes halo{from{opacity:.4;transform:translate(-50%,-50%) scale(.9);}to{opacity:.85;transform:translate(-50%,-50%) scale(1.08);}}
+  .cake{position:relative;z-index:2;width:260px;margin:0 auto;}
+  .candles{display:flex;justify-content:center;gap:26px;margin-bottom:-4px;position:relative;z-index:5;}
+  .candle{width:9px;height:44px;border-radius:5px;background:repeating-linear-gradient(45deg,#ff9aa2 0 6px,#fff 6px 12px);position:relative;box-shadow:0 2px 6px rgba(0,0,0,.25);}
+  .flame{position:absolute;top:-22px;left:50%;width:15px;height:24px;transform:translateX(-50%);
+    background:radial-gradient(circle at 50% 70%, #fff 0%, #ffd86b 35%, #ff7b00 72%, transparent 76%);
+    border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;transform-origin:center bottom;
+    animation:dance .32s infinite alternate ease-in-out;box-shadow:0 0 28px 8px rgba(255,150,0,.6);}
+  @keyframes dance{from{transform:translateX(-50%) rotate(-7deg) scaleY(.94);}to{transform:translateX(-50%) rotate(7deg) scaleY(1.1);}}
+  .candle.out .flame{opacity:0;transform:translateX(-50%) scale(.2);box-shadow:none;transition:.5s;}
+  .candle.out::after{content:"";position:absolute;top:-14px;left:50%;width:6px;height:6px;border-radius:50%;background:rgba(190,190,190,.6);transform:translateX(-50%);animation:smoke 1.3s forwards ease-out;}
+  @keyframes smoke{to{transform:translate(-50%,-34px) scale(2.2);opacity:0;}}
+  .layer{border-radius:14px 14px 8px 8px;position:relative;box-shadow:inset 0 -6px 12px rgba(0,0,0,.12);}
+  .drip{position:absolute;top:-2px;left:0;width:100%;}
+  .l-top{width:150px;height:48px;margin:0 auto;background:linear-gradient(180deg,#ffd6e7,#ff9ec4);}
+  .l-top .drip{background:linear-gradient(180deg,#fff,#ffe6f1);height:18px;
+    -webkit-mask:radial-gradient(12px at 12px 0,transparent 98%,#000) repeat-x;mask:radial-gradient(12px at 12px 0,transparent 98%,#000) repeat-x;
+    -webkit-mask-size:24px 18px;mask-size:24px 18px;}
+  .l-mid{width:210px;height:56px;margin:0 auto;background:linear-gradient(180deg,#bfa2ff,#8a6bff);}
+  .l-mid .drip{background:linear-gradient(180deg,#fff,#efe7ff);height:20px;
+    -webkit-mask:radial-gradient(14px at 14px 0,transparent 98%,#000) repeat-x;mask:radial-gradient(14px at 14px 0,transparent 98%,#000) repeat-x;
+    -webkit-mask-size:28px 20px;mask-size:28px 20px;}
+  .l-bot{width:260px;height:64px;margin:0 auto;background:linear-gradient(180deg,#7ee0d6,#3fc7b8);}
+  .l-bot .drip{background:linear-gradient(180deg,#fff,#e3fff9);height:22px;
+    -webkit-mask:radial-gradient(16px at 16px 0,transparent 98%,#000) repeat-x;mask:radial-gradient(16px at 16px 0,transparent 98%,#000) repeat-x;
+    -webkit-mask-size:32px 22px;mask-size:32px 22px;}
+  .dot{position:absolute;width:6px;height:10px;border-radius:3px;}
+  .plate{width:300px;height:18px;margin:-4px auto 0;background:linear-gradient(180deg,var(--plate),#d9c4a3);border-radius:50%;box-shadow:0 16px 34px rgba(0,0,0,.45);}
+  .ribbon{margin-top:28px;text-align:center;color:#ffe9c7;font-size:15px;line-height:1.7;max-width:360px;opacity:0;animation:fadeUp 1s 1.1s forwards;}
+  .ribbon b{color:var(--gold);}
+  .from{margin-top:12px;font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:#cbb8ff;letter-spacing:1px;}
+  .btn{margin-top:24px;border:none;cursor:pointer;font-family:'Quicksand';font-weight:700;font-size:15px;color:#2a0e4e;padding:14px 30px;border-radius:40px;position:relative;overflow:hidden;
+    background:linear-gradient(90deg,var(--gold),var(--rose));box-shadow:0 10px 26px rgba(255,126,179,.45);opacity:0;
+    animation:fadeUp 1s 1.3s forwards, pulse 2.2s ease-in-out infinite 2s;transition:transform .15s;}
+  .btn::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.6),transparent);animation:swipe 3s infinite 2s;}
+  @keyframes swipe{0%{left:-120%;}40%,100%{left:140%;}}
+  .btn:hover{transform:translateY(-2px) scale(1.04);}
+  .btn:active{transform:scale(.97);}
+  @keyframes pulse{0%,100%{box-shadow:0 10px 26px rgba(255,126,179,.45);}50%{box-shadow:0 10px 40px rgba(255,216,107,.75);}}
+  .wish{margin-top:16px;font-family:'Pacifico',cursive;font-size:23px;color:var(--gold);height:32px;opacity:0;transform:scale(.6);transition:.5s;text-shadow:0 0 18px rgba(255,216,107,.6);}
+  .wish.show{opacity:1;transform:scale(1);}
+  .confetti{position:fixed;top:-10px;width:10px;height:14px;z-index:50;border-radius:2px;pointer-events:none;}
+  @keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.9;}}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toline">A little surprise just for &nbsp;<span>you</span></div>
+    <div class="greet">Wishing you the happiest of days…</div>
+    <div class="title">Happy Birthday ✨</div>
+
+    <div class="stage">
+      <div class="cake">
+        <div class="candles" id="candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="layer l-top"><div class="drip"></div></div>
+        <div class="layer l-mid"><div class="drip"></div></div>
+        <div class="layer l-bot"><div class="drip"></div></div>
+        <div class="plate"></div>
+      </div>
+    </div>
+
+    <div class="ribbon">
+      To someone truly <b>special</b> —<br>
+      You make the world brighter just by being in it. Your <b>kindness</b>, your <b>smile</b>, and the way you light up every room are gifts to everyone lucky enough to know you. 🌟<br><br>
+      There's something rare about you — the way you care, the way you make people feel seen, the quiet strength you carry through everything. Not everyone notices it, but I do. 💫<br><br>
+      Today isn't just another birthday — it's a celebration of <b>you</b>: every dream you're chasing, every battle you've quietly won, and every beautiful thing still ahead of you. 🎈<br><br>
+      May this year bring you all the <b>joy</b>, <b>success</b>, and <b>love</b> your heart can hold. May your laughter never fade, your worries stay small, and your blessings keep multiplying. You deserve nothing less. 🎂✨<br><br>
+      Here's to you — today, and always. 🥂
+      <div class="from">— with all my love, Anees Mughal 💛</div>
+    </div>
+
+    <button class="btn" id="blowBtn">🌬️ Make a wish &amp; blow</button>
+    <div class="wish" id="wish">Wish granted! 💫</div>
+  </div>
+
+<script>
+  const body=document.body;
+  const colors=['#fff','#ffd86b','#ff7eb3','#7ee0d6','#bfa2ff','#ffb347'];
+
+  // stars
+  for(let i=0;i<70;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=(Math.random()*2+1.2);
+    s.style.width=s.style.height=sz+'px';
+    s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';
+    s.style.animationDelay=Math.random()*3+'s';
+    body.appendChild(s);
+  }
+  // floating sparks
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');p.className='spark';
+    const sz=(Math.random()*5+3);
+    p.style.width=p.style.height=sz+'px';
+    p.style.left=Math.random()*100+'vw';p.style.bottom='-20px';
+    p.style.animationDuration=(Math.random()*8+8)+'s';
+    p.style.animationDelay=(Math.random()*8)+'s';
+    body.appendChild(p);
+  }
+  // balloons
+  const bColors=['#ff7eb3','#7ee0d6','#bfa2ff','#ffd86b','#ff9aa2'];
+  for(let i=0;i<6;i++){
+    const b=document.createElement('div');b.className='balloon';
+    b.style.background='radial-gradient(circle at 35% 30%, #fff6, '+bColors[i%bColors.length]+')';
+    b.style.left=(8+i*16+Math.random()*6)+'vw';
+    b.style.animationDuration=(Math.random()*8+14)+'s';
+    b.style.animationDelay=(Math.random()*10)+'s';
+    b.style.transform='scale('+(0.7+Math.random()*0.6)+')';
+    body.appendChild(b);
+  }
+  // sprinkles
+  document.querySelectorAll('.layer').forEach(l=>{
+    for(let i=0;i<8;i++){
+      const d=document.createElement('div');d.className='dot';
+      d.style.background=colors[Math.floor(Math.random()*colors.length)];
+      d.style.left=(10+Math.random()*80)+'%';d.style.top=(35+Math.random()*45)+'%';
+      d.style.transform='rotate('+(Math.random()*360)+'deg)';
+      l.appendChild(d);
+    }
+  });
+  // confetti
+  function confetti(n){
+    for(let i=0;i<n;i++){
+      const c=document.createElement('div');c.className='confetti';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      const dur=(Math.random()*1.8+2.2);
+      c.style.animation='fall '+dur+'s linear forwards';
+      c.style.animationDelay=(Math.random()*0.6)+'s';
+      if(Math.random()>.5)c.style.borderRadius='50%';
+      body.appendChild(c);
+      setTimeout(()=>c.remove(),(dur+1)*1000);
+    }
+  }
+  // blow
+  const btn=document.getElementById('blowBtn');
+  const candles=document.querySelectorAll('.candle');
+  const wish=document.getElementById('wish');
+  let blown=false;
+  btn.addEventListener('click',()=>{
+    if(blown){
+      candles.forEach(c=>c.classList.remove('out'));
+      wish.classList.remove('show');blown=false;
+      btn.innerHTML='🌬️ Make a wish &amp; blow';return;
+    }
+    candles.forEach((c,i)=>setTimeout(()=>c.classList.add('out'),i*180));
+    setTimeout(()=>{wish.classList.add('show');confetti(140);btn.innerHTML='🔁 Light again';},candles.length*180+200);
+    blown=true;
+  });
+  window.addEventListener('load',()=>setTimeout(()=>confetti(50),1400));
+</script>
+</body>
+</html>
